@@ -32,10 +32,31 @@ fun SensorListScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            // TODO(UP-05): Display available sensors and call onSensorSelected when user taps one
-            // Hint: Use LazyColumn with items() to display the list of sensors from state.available
-            // Hint: Use Card or similar composable for each sensor item
-            // Hint: Show sensor.displayName and handle onClick to call onSensorSelected
+            // TODO(UP-05): Afficher les capteurs disponibles et appeler onSensorSelected quand l'utilisateur en sélectionne un
+            // 
+            // Indications:
+            // - Utiliser LazyColumn avec items() pour afficher state.available
+            // - Utiliser Card avec onClick pour chaque capteur
+            // - Afficher sensor.displayName
+            // - Gérer onClick pour appeler onSensorSelected(sensor)
+            // 
+            // Exemple de structure:
+            // LazyColumn(
+            //     modifier = Modifier.fillMaxSize(),
+            //     verticalArrangement = Arrangement.spacedBy(12.dp)
+            // ) {
+            //     items(state.available) { sensor ->
+            //         Card(
+            //             onClick = { onSensorSelected(sensor) },
+            //             modifier = Modifier.fillMaxWidth()
+            //         ) {
+            //             Text(
+            //                 text = sensor.displayName,
+            //                 modifier = Modifier.padding(16.dp)
+            //             )
+            //         }
+            //     }
+            // }
             Text(
                 text = "TODO: Display ${state.available.size} available sensors",
                 style = MaterialTheme.typography.bodyLarge

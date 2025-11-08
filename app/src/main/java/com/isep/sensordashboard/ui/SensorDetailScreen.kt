@@ -33,10 +33,25 @@ fun SensorDetailScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            // TODO(UP-05): Display lastReading values
-            // Hint: Check state.lastReading and state.currentType
-            // Hint: Display each value with its axis label (e.g., "x = 0.00 m/s²")
-            // Hint: Show a message if reading is null (e.g., "Waiting for values...")
+            // TODO(UP-05): Afficher les valeurs de lastReading
+            // 
+            // Indications:
+            // - Vérifier state.lastReading et state.currentType
+            // - Si lastReading != null, afficher chaque valeur avec son label d'axe
+            // - Utiliser zip() pour combiner axisLabels et values: 
+            //   state.currentType.axisLabels.zip(state.lastReading.values)
+            // - Formater les valeurs: "%.2f".format(value)
+            // - Afficher "Waiting for values..." si reading est null
+            // 
+            // Exemple:
+            // if (state.lastReading != null && state.currentType != null) {
+            //     state.currentType.axisLabels.zip(state.lastReading.values).forEach { (label, value) ->
+            //         val suffix = state.currentType.unitSuffix.takeIf { it.isNotEmpty() }?.let { " $it" } ?: ""
+            //         Text("$label = ${"%.2f".format(value)}$suffix")
+            //     }
+            // } else {
+            //     Text("Waiting for values...")
+            // }
             
             Card(
                 modifier = Modifier
@@ -64,10 +79,25 @@ fun SensorDetailScreen(
                 }
             }
 
-            // TODO(UP-05): Allow user to pick a SamplingRate and call onRateSelected
-            // Hint: Use LazyRow with FilterChip or similar to display SamplingRate.entries
-            // Hint: Show state.rate as selected
-            // Hint: Call onRateSelected when user selects a different rate
+            // TODO(UP-05): Permettre à l'utilisateur de choisir un SamplingRate et appeler onRateSelected
+            // 
+            // Indications:
+            // - Utiliser LazyRow avec FilterChip pour afficher SamplingRate.entries
+            // - Afficher state.rate comme sélectionné (selected = rate == state.rate)
+            // - Appeler onRateSelected(rate) quand l'utilisateur sélectionne un taux différent
+            // 
+            // Exemple de structure:
+            // LazyRow(
+            //     horizontalArrangement = Arrangement.spacedBy(12.dp)
+            // ) {
+            //     items(SamplingRate.entries.toTypedArray()) { rate ->
+            //         FilterChip(
+            //             selected = rate == state.rate,
+            //             onClick = { onRateSelected(rate) },
+            //             label = { Text(rate.label) }
+            //         )
+            //     }
+            // }
             Text(
                 text = "TODO: Display sampling rate selector (current: ${state.rate.label})",
                 style = MaterialTheme.typography.bodyMedium,

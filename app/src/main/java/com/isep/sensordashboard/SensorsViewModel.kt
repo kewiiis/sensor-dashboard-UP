@@ -46,37 +46,98 @@ class SensorsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun refreshAvailableSensors() {
-        // TODO(UP-04): Implement refreshAvailableSensors()
-        // 1. Get available sensors from repository
-        // 2. Update state with available sensors
-        // 3. Select first sensor if available
-        // 4. Start streaming if a sensor is selected
+        // TODO(UP-04): Implémenter refreshAvailableSensors()
+        // 
+        // Étapes:
+        // 1. Obtenir les capteurs disponibles: val sensors = repository.availableSensors()
+        // 2. Mettre à jour l'état avec les capteurs disponibles
+        // 3. Sélectionner le premier capteur s'il y en a un: sensors.firstOrNull()
+        // 4. Démarrer le streaming si un capteur est sélectionné: restartStream()
+        // 
+        // Exemple de structure:
+        // val sensors = repository.availableSensors()
+        // val selected = sensors.firstOrNull()
+        // _state.update { 
+        //     it.copy(
+        //         available = sensors,
+        //         currentType = selected,
+        //         error = if (selected == null) "No sensors available" else null
+        //     )
+        // }
+        // if (selected != null) restartStream()
         TODO("Implement refreshAvailableSensors()")
     }
 
     fun selectSensor(type: SensorType) {
-        // TODO(UP-04): Implement selectSensor(type: SensorType)
-        // 1. Update state with new currentType
-        // 2. Restart streaming with new sensor
+        // TODO(UP-04): Implémenter selectSensor(type: SensorType)
+        // 
+        // Étapes:
+        // 1. Mettre à jour l'état avec le nouveau currentType
+        // 2. Réinitialiser lastReading et error
+        // 3. Redémarrer le streaming avec le nouveau capteur
+        // 
+        // Exemple:
+        // _state.update { 
+        //     it.copy(
+        //         currentType = type,
+        //         lastReading = null,
+        //         error = null
+        //     )
+        // }
+        // restartStream()
         TODO("Implement selectSensor()")
     }
 
     fun setRate(rate: SamplingRate) {
-        // TODO(UP-04): Implement setRate(rate: SamplingRate)
-        // 1. Update state with new rate
-        // 2. Restart streaming with new rate
+        // TODO(UP-04): Implémenter setRate(rate: SamplingRate)
+        // 
+        // Étapes:
+        // 1. Mettre à jour l'état avec le nouveau rate
+        // 2. Réinitialiser lastReading et error
+        // 3. Redémarrer le streaming avec le nouveau taux
+        // 
+        // Exemple:
+        // _state.update { 
+        //     it.copy(
+        //         rate = rate,
+        //         lastReading = null,
+        //         error = null
+        //     )
+        // }
+        // restartStream()
         TODO("Implement setRate()")
     }
 
     private fun restartStream() {
-        // TODO(UP-04): Start and stop collecting readings() based on currentType + rate
-        // 1. Cancel existing readingsJob if any
-        // 2. Get currentType and rate from state
-        // 3. If currentType is null, return
-        // 4. Update state to isStreaming = true
-        // 5. Launch a coroutine to collect from repository.readings()
-        // 6. Update state with each reading
-        // 7. Handle errors with catch()
+        // TODO(UP-04): Démarrer et arrêter la collecte de readings() basée sur currentType + rate
+        // 
+        // Étapes:
+        // 1. Annuler le job existant: readingsJob?.cancel()
+        // 2. Récupérer currentType et rate depuis l'état: val sensorType = _state.value.currentType
+        // 3. Si currentType est null, retourner
+        // 4. Mettre à jour l'état: isStreaming = true, error = null, lastReading = null
+        // 5. Lancer une coroutine pour collecter depuis repository.readings()
+        // 6. Mettre à jour l'état avec chaque lecture
+        // 7. Gérer les erreurs avec .catch { }
+        // 
+        // Exemple de structure:
+        // readingsJob?.cancel()
+        // val sensorType = _state.value.currentType ?: return
+        // val rate = _state.value.rate
+        // _state.update { it.copy(isStreaming = true, error = null, lastReading = null) }
+        // readingsJob = viewModelScope.launch {
+        //     repository.readings(sensorType, rate)
+        //         .catch { throwable ->
+        //             _state.update { 
+        //                 it.copy(error = throwable.message, isStreaming = false)
+        //             }
+        //         }
+        //         .collect { reading ->
+        //             _state.update { 
+        //                 it.copy(lastReading = reading, isStreaming = true, error = null)
+        //             }
+        //         }
+        // }
         TODO("Implement restartStream()")
     }
 

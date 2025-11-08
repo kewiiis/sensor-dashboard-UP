@@ -10,12 +10,20 @@ class SensorRepositoryImpl(
     private val ds: AndroidSensorDataSource
 ) : SensorRepository {
     override fun availableSensors(): List<SensorType> {
-        // TODO(UP-02): delegate to data source
+        // TODO(UP-02): Déléguer à la source de données
+        // 
+        // Indication: Utiliser ds.available() pour obtenir la liste des capteurs disponibles
+        // 
+        // Exemple: return ds.available()
         TODO("Implement availableSensors()")
     }
 
     override fun readings(type: SensorType, rate: SamplingRate): Flow<SensorReading> {
-        // TODO(UP-03): delegate to data source
+        // TODO(UP-03): Déléguer à la source de données
+        // 
+        // Indication: Utiliser ds.stream(type, rate) pour obtenir le flux de lectures
+        // 
+        // Exemple: return ds.stream(type, rate)
         TODO("Implement readings()")
     }
 }

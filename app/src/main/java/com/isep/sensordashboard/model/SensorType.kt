@@ -17,6 +17,24 @@ enum class SensorType(
         supportsHighSampling = true
     );
     // TODO(UP-01): Add at least 2 more sensor types (e.g. GYROSCOPE, LIGHT)
+    // 
+    // Exemple pour GYROSCOPE:
+    // GYROSCOPE(
+    //     androidType = Sensor.TYPE_GYROSCOPE,
+    //     axisLabels = listOf("x", "y", "z"),
+    //     unitSuffix = "rad/s",
+    //     displayName = "Gyroscope",
+    //     supportsHighSampling = true
+    // ),
+    //
+    // Exemple pour LIGHT:
+    // LIGHT(
+    //     androidType = Sensor.TYPE_LIGHT,
+    //     axisLabels = listOf("lux"),
+    //     unitSuffix = "lx",
+    //     displayName = "Light",
+    //     supportsHighSampling = false
+    // );
 
     val dimensions: Int = axisLabels.size
 }

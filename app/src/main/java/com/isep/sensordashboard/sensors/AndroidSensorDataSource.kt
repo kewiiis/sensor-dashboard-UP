@@ -19,18 +19,58 @@ class AndroidSensorDataSource(
 
     fun available(): List<SensorType> {
         // TODO(UP-02): Implement available() to return supported SensorType values based on real sensors
-        // Hint: Use manager.getDefaultSensor() to check if a sensor type is available
+        // 
+        // Indications:
+        // - Utiliser SensorType.entries pour obtenir tous les types de capteurs définis
+        // - Filtrer avec .filter { } pour ne garder que ceux disponibles sur l'appareil
+        // - Vérifier la disponibilité avec: manager.getDefaultSensor(it.androidType) != null
+        // 
+        // Exemple de code:
+        // return SensorType.entries.filter { sensorType ->
+        //     manager.getDefaultSensor(sensorType.androidType) != null
+        // }
         TODO("Implement available()")
     }
 
     fun stream(type: SensorType, rate: SamplingRate): Flow<SensorReading> = callbackFlow {
         // TODO(UP-03): Implement stream(type, rate) returning Flow<SensorReading> using SensorEventListener
-        // Steps:
-        // 1. Get the sensor using manager.getDefaultSensor(type.androidType)
-        // 2. Create a SensorEventListener that converts SensorEvent to SensorReading
-        // 3. Register the listener with manager.registerListener()
-        // 4. Use awaitClose { manager.unregisterListener() } to clean up
-        // 5. Handle the sampling period based on rate.requiresHighSamplingPermission and type.supportsHighSampling
+        // 
+        // Étapes à suivre:
+        // 
+        // 1. Récupérer le capteur:
+        //    val sensor: Sensor? = manager.getDefaultSensor(type.androidType)
+        //    if (sensor == null) {
+        //        close(IllegalStateException("Sensor not available"))
+        //        return@callbackFlow
+        //    }
+        //
+        // 2. Créer un SensorEventListener qui convertit SensorEvent en SensorReading:
+        //    val listener = object : SensorEventListener {
+        //        override fun onSensorChanged(event: SensorEvent) {
+        //            val values = List(type.dimensions) { index ->
+        //                event.values.getOrNull(index) ?: 0f
+        //            }
+        //            trySend(SensorReading(
+        //                type = type,
+        //                values = values,
+        //                timestampNanos = event.timestamp
+        //            ))
+        //        }
+        //        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
+        //    }
+        //
+        // 3. Calculer la période d'échantillonnage:
+        //    val samplingPeriodUs = if (rate.requiresHighSamplingPermission && type.supportsHighSampling) {
+        //        0  // Mode haute fréquence
+        //    } else {
+        //        rate.samplingPeriodMicros
+        //    }
+        //
+        // 4. Enregistrer le listener:
+        //    manager.registerListener(listener, sensor, samplingPeriodUs, 0)
+        //
+        // 5. Nettoyer à la fermeture:
+        //    awaitClose { manager.unregisterListener(listener) }
         TODO("Implement stream()")
     }
 }
